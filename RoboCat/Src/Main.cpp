@@ -1,6 +1,9 @@
 
 #include "RoboCatPCH.h"
 #include <thread>
+#include <allegro5/allegro.h>
+
+#include "Color.h"
 
 #if _WIN32
 
@@ -17,6 +20,24 @@ int main(int argc, const char** argv)
 	__argc = argc;
 	__argv = argv;
 #endif
+
+	//Testing if allegro was set up correctly
+	al_init();
+	ALLEGRO_DISPLAY* display = nullptr;
+	al_set_app_name("Hello World!");
+	display = al_create_display(640, 480);
+	if (display == nullptr)
+	{
+		std::cerr << "Hello? World? Where are you :(" << std::endl;
+		al_rest(5.0);
+		return EXIT_FAILURE;
+	}
+
+
+	al_clear_to_color(al_map_rgba(255, 0, 0, 1));
+	al_flip_display();
+	al_rest(5.0);
+
 
 	SocketUtil::StaticInit();
 
